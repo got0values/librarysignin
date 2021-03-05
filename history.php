@@ -33,11 +33,13 @@ try{
 <table class="table table-hover container">
   <thead>
     <tr>
+        <th scope="col"></th>    
         <th scope="col"></th>
         <th scope="col">Barcode</th>
         <th scope="col">Name</th>
         <th scope="col">Time</th>
         <th scope="col">Date</th>
+        <th scope="col">Notes</th>
     </tr>
   </thead>
   <tbody id="tBody">
@@ -51,8 +53,10 @@ try{
             $delQuery = "DELETE FROM SignIn WHERE transid = '$transid'";
             $pdo->query($delQuery);
         };
+        $i = 1;
         foreach ($getSelDateStats as $datesRow) {
             echo "<tr>";
+            echo    "<td>" . $i++ . "</td>";
             echo    "<td>";
             echo        "<form action='history.php' method='get'>";
             echo            "<input type='hidden' name='inputDate' value='$inputDate'>";
@@ -60,7 +64,7 @@ try{
             echo            "<input type='submit' id='delete' name='delete' value='Delete' class='btn btn-danger btn-sm'>";
             echo        "</form>";
             echo    "</td>";
-            echo    "<td>" . $datesRow[1] . "</td><td>" . $datesRow[2] . "</td><td>" . $datesRow[3] . "</td><td>" . $datesRow[4] . "</td>";
+            echo    "<td>" . $datesRow[1] . "</td><td>" . $datesRow[2] . "</td><td>" . $datesRow[3] . "</td><td>" . $datesRow[4] . "</td><td>" . $datesRow[5] . "</td>";
             echo "</tr>";
         }
     ?>

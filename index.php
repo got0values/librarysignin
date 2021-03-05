@@ -36,9 +36,9 @@ if (isset($_POST["bcSubmit"])) {
 }
 ?>
 
-<div class="container input-group">
+<div class="container input-group mb-3">
     <form action="index.php" method="post">
-        <input type="text" name="bcNum" class="form-control" placeholder="Barcode" id="bcInput">
+        <input type="text" name="bcNum" placeholder="Barcode" id="bcInput">
         <input class="btn btn-outline-secondary" name="bcSubmit" value="Submit" type="submit">
     </form>
 </div> 
@@ -46,12 +46,13 @@ if (isset($_POST["bcSubmit"])) {
 <table class="table table-hover container">
   <thead>
     <tr>
+        <th scope="col">#</th>
         <th scope="col">Delete</th>
         <th scope="col">Barcode</th>
         <th scope="col">Name</th>
         <th scope="col">Time</th>
         <th scope="col">Date</th>
-        <th scope="col">Date</th>
+        <th scope="col">Notes</th>
     </tr>
   </thead>
   <tbody id="tBody">
@@ -66,12 +67,22 @@ if (isset($_POST["bcSubmit"])) {
             $pdo->query($deleteSigninQuery);
         }
 
+        // add notes query and execution
+        if (isset($_POST['notesButton'])) {
+            $notesText = $_POST['notesText'];
+            $transIdThree = $_POST['transIdThree'];
+            $addNotesQuery = "UPDATE SignIn SET notes = '$notesText' WHERE transid = '$transIdThree'";
+            $pdo->exec($addNotesQuery);
+        }
+
         // list today's patrons query
         $getCurDateStats = "SELECT * FROM SignIn WHERE date = DATE('now', 'localtime');";
         $curDateStats = $pdo->query($getCurDateStats);
+        $i = 1;
         foreach ($curDateStats as $cdsRow) {
             echo 
             "<tr>
+                <td>" . $i++ . "</td>
                 <td> 
                 <form action='index.php' method='post'>
                     <input type='submit' name='deleteTwo' value='Delete' class='btn btn-danger btn-sm' value='Delete'>
@@ -79,8 +90,9 @@ if (isset($_POST["bcSubmit"])) {
                 </form>
                 </td><td>" . $cdsRow[1] . "</td><td>" . $cdsRow[2] . "</td><td>" . $cdsRow[3] . "</td><td>" . $cdsRow[4] . "</td><td>" .  
                 "<form action='index.php' method='post'>
-                    <input type='text' name='notesText'>
-                    <input type='hidden' name='transID' value='$cdsRow[5]'>
+                    <input type='text' name='notesText' value='$cdsRow[5]'>
+                    <input type='submit' name='notesButton' value='Save'>
+                    <input type='hidden' name='transIdThree' value='$cdsRow[0]'>                    
                 </form>" . 
                 "</td>
             </tr>";

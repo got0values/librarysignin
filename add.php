@@ -56,10 +56,12 @@ if (isset($_POST["namecardsubmit"])) {
 
     // foreach($cardQueryResult as $cardRow) {
         echo "<table class='table table-hover container'>";
-        echo "<th></th><th>" . 'Barcode' . "</th><th>" . 'Name' . "</th>";
-        echo "<tbody>"; 
+        echo "<th></th><th></th><th>" . 'Barcode' . "</th><th>" . 'Name' . "</th>";
+        echo "<tbody>";
+        $i = 1; 
         foreach($cardQueryResult as $cardRow) {       
             echo "<tr class='container'>";
+            echo "<td>" . $i++ . "</td>";
             echo 
             "<td><form action='add.php' method='post'>
                 <input type='submit' name='deletePatronButton' class='btn btn-danger btn-sm' value='Delete'>
