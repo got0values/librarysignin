@@ -29,7 +29,7 @@ if (isset($_POST["namecardsubmit"])) {
 ?>
 
 
-<div class="container input-group">
+<div class="container input-group mb-3">
     <form action="" method="post">
         <label>Card:</label>
         <input type="text" name="inputpatron">
@@ -56,18 +56,18 @@ if (isset($_POST["namecardsubmit"])) {
 
     // foreach($cardQueryResult as $cardRow) {
         echo "<table class='table table-hover container'>";
-        echo "<th></th><th></th><th>" . 'Barcode' . "</th><th>" . 'Name' . "</th>";
+        echo "<th class='text-center'></th><th class='text-center'></th><th class='text-center'>" . 'Barcode' . "</th><th class='text-center'>" . 'Name' . "</th>";
         echo "<tbody>";
         $i = 1; 
         foreach($cardQueryResult as $cardRow) {       
-            echo "<tr class='container'>";
+            echo "<tr>";
             echo "<td>" . $i++ . "</td>";
             echo 
-            "<td><form action='add.php' method='post'>
+            "<td class='text-center'><form action='add.php' method='post'>
                 <input type='submit' name='deletePatronButton' class='btn btn-danger btn-sm' value='Delete'>
                 <input type='hidden' name='patronCard' value='$cardRow[0]'>
             </form></td>";
-            echo "<td>" . $cardRow[0] . "</td><td>" . $cardRow[1] . "</td>";
+            echo "<td class='text-center'>" . $cardRow[0] . "</td><td class='text-center'>" . $cardRow[1] . "</td>";
             echo "</tr>";
         }
         echo "</tbody>";

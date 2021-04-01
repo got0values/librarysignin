@@ -38,7 +38,7 @@ if (isset($_POST["bcSubmit"])) {
 
 <div class="container input-group mb-3">
     <form action="index.php" method="post">
-        <input type="text" name="bcNum" placeholder="Barcode" id="bcInput">
+        <input type="text" name="bcNum" placeholder="Barcode" id="bcInput" autofocus>
         <input class="btn btn-outline-secondary" name="bcSubmit" value="Submit" type="submit">
     </form>
 </div> 
