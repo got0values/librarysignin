@@ -17,7 +17,7 @@ if (isset($_POST["namecardsubmit"])) {
         $inputPatronName = $_POST['inputpatron2'];
 
         // query
-        $addQuery = "INSERT INTO FMLTRACNameList (card, name) VALUES ('$inputPatronCard','$inputPatronName')";
+        $addQuery = "INSERT INTO NameList (card, name) VALUES ('$inputPatronCard','$inputPatronName')";
 
         // execute pdo add query
         $pdo->query($addQuery);
@@ -43,35 +43,34 @@ if (isset($_POST["namecardsubmit"])) {
     $pdo = new PDO('sqlite:signin.db');
 
     // list query
-    $cardQuery = "SELECT * FROM FMLTRACNameList";
+    $cardQuery = "SELECT * FROM NameList";
     // execute pdo list query
     $cardQueryResult = $pdo->query($cardQuery);
 
     // delete query and execution
     if (isset($_POST['deletePatronButton'])) {
         $patronCard = $_POST['patronCard'];
-        $deleteQuery = "DELETE FROM FMLTRACNameList WHERE card = '$patronCard'";
+        $deleteQuery = "DELETE FROM NameList WHERE card = '$patronCard'";
         $pdo->exec($deleteQuery);        
     }
 
-    // foreach($cardQueryResult as $cardRow) {
-        echo "<table class='table table-hover container'>";
-        echo "<th class='text-center'></th><th class='text-center'></th><th class='text-center'>" . 'Barcode' . "</th><th class='text-center'>" . 'Name' . "</th>";
-        echo "<tbody>";
-        $i = 1; 
-        foreach($cardQueryResult as $cardRow) {       
-            echo "<tr>";
-            echo "<td>" . $i++ . "</td>";
-            echo 
-            "<td class='text-center'><form action='add.php' method='post'>
-                <input type='submit' name='deletePatronButton' class='btn btn-danger btn-sm' value='Delete'>
-                <input type='hidden' name='patronCard' value='$cardRow[0]'>
-            </form></td>";
-            echo "<td class='text-center'>" . $cardRow[0] . "</td><td class='text-center'>" . $cardRow[1] . "</td>";
-            echo "</tr>";
-        }
-        echo "</tbody>";
-        echo "</table>";
+    echo "<table class='table table-hover container'>";
+    echo "<th class='text-center'></th><th class='text-center'></th><th class='text-center'>" . 'Barcode' . "</th><th class='text-center'>" . 'Name' . "</th>";
+    echo "<tbody>";
+    $i = 1; 
+    foreach($cardQueryResult as $cardRow) {
+        echo "<tr>";
+        echo "<td>" . $i++ . "</td>";
+        echo 
+        "<td class='text-center'><form action='add.php' method='post'>
+            <input type='submit' name='deletePatronButton' class='btn btn-danger btn-sm' value='Delete'>
+            <input type='hidden' name='patronCard' value='$cardRow[0]'>
+        </form></td>";
+        echo "<td class='text-center'>" . $cardRow[0] . "</td><td class='text-center'>" . $cardRow[1] . "</td>";
+        echo "</tr>";
+    }
+    echo "</tbody>";
+    echo "</table>";
     
 ?>
 

@@ -4,5 +4,4 @@
 
 
 
-    <!-- </div>
-</main> -->
+<!-- By Jason Velarde jayvelphoto@gmail.com -->
