@@ -18,7 +18,7 @@ if (isset($_POST["bcSubmit"])) {
 
         // obtain name from barcode number
         $bcNum = $_POST['bcNum'];
-        $getNameStatement = "SELECT name FROM NameList WHERE card = '$bcNum';";
+        $getNameStatement = "SELECT name FROM FMLTRACNameList WHERE card = '$bcNum';";
         $results = $pdo->query($getNameStatement);
         $row = $results->fetch();
         $rowZero = $row[0];

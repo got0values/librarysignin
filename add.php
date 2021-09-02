@@ -17,7 +17,7 @@ if (isset($_POST["namecardsubmit"])) {
         $inputPatronName = $_POST['inputpatron2'];
 
         // query
-        $addQuery = "INSERT INTO NameList (card, name) VALUES ('$inputPatronCard','$inputPatronName')";
+        $addQuery = "INSERT INTO FMLTRACNameList (card, name) VALUES ('$inputPatronCard','$inputPatronName')";
 
         // execute pdo add query
         $pdo->query($addQuery);
@@ -43,7 +43,7 @@ if (isset($_POST["namecardsubmit"])) {
     $pdo = new PDO('sqlite:signin.db');
 
     // list query
-    $cardQuery = "SELECT * FROM NameList";
+    $cardQuery = "SELECT * FROM FMLTRACNameList";
     // execute pdo list query
     $cardQueryResult = $pdo->query($cardQuery);
 
