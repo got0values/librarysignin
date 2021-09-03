@@ -88,7 +88,7 @@ if (isset($_POST["bcSubmit"])) {
                     <input type='submit' name='deleteTwo' value='Delete' class='btn btn-danger btn-sm' value='Delete'>
                     <input type='hidden' name='deleteTrans' value='$cdsRow[0]'>
                 </form>
-                </td><td>" . $cdsRow[1] . "</td><td>" . $cdsRow[2] . "</td><td>" . $cdsRow[3] . "</td><td>" . $cdsRow[4] . "</td><td>" .  
+                </td><td>" . $cdsRow[1] . "</td><td>" . $cdsRow[2] . "</td><td>" . date("h:i:s a", strtotime($cdsRow[3])) . "</td><td>" . date("M d, Y", strtotime($cdsRow[4])) . "</td><td>" .  
                 "<form action='index.php' method='post'>
                     <input type='text' name='notesText' value='$cdsRow[5]'>
                     <input type='submit' name='notesButton' value='Save'>

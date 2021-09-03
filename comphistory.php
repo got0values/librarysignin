@@ -2,10 +2,9 @@
     include_once 'header.php';
 ?>
 
-<title>Comp Stats</title>
+<title>Computer History</title>
 
-<h2 class="text-center mb-5" id='dateTitle'>Comp Stats</h2>
-
+<h2 class="text-center mb-5" id='dateTitle'>Computer History</h2>
 
 <?php
 try{
@@ -22,9 +21,9 @@ try{
 ?>
 
 <div class="d-flex justify-content-center">
-    <form action="compstats.php" method="get">
-        <label>Month:</label>    
-        <input class="mb-5" type="month" name="dateInput" id="dateInput" value=<?php echo $inputDate ?>>
+    <form action="comphistory.php" method="get">
+        <label>Date:</label>    
+        <input class="mb-5" type="date" name="dateInput" id="dateInput" value=<?php echo $inputDate ?>>
         <input type="hidden" id="inputDate" name="inputDate">
         <button class="btn btn-outline-secondary" name="dateSubmit" value="$dateInput" type="submit" id="button-addon2">Submit</button>
     </form>
@@ -44,9 +43,9 @@ try{
   </thead>
   <tbody id="tBody">
     <?php
-        $pdo = new PDO('sqlite:signin.db');               
-        $getDateInput = "SELECT * FROM CompOut WHERE date LIKE '$inputDate%'";
-        $getSelDateStats = $pdo->query($getDateInput);      
+        $pdo = new PDO('sqlite:signin.db');
+        $getDateInput = "SELECT * FROM CompOut WHERE date = '$inputDate'";
+        $getSelDateStats = $pdo->query($getDateInput);       
         if(isset($_GET['delete'])) {    
             $inputDate = $_GET['inputDate'];
             $transid = $_GET['datesRow'];
@@ -58,7 +57,7 @@ try{
             echo "<tr>";
             echo    "<td>" . $i++ . "</td>";
             echo    "<td>";
-            echo        "<form action='compstats.php' method='get'>";
+            echo        "<form action='comphistory.php' method='get'>";
             echo            "<input type='hidden' name='inputDate' value='$inputDate'>";
             echo            "<input type='hidden' name='datesRow' value='$datesRow[0]'>";
             echo            "<input type='submit' id='delete' name='delete' value='Delete' class='btn btn-danger btn-sm'>";
@@ -72,7 +71,7 @@ try{
 </table>
 
 
-<script type="text/javascript" src="stats.js"></script>
+<script type="text/javascript" src="history.js"></script>
 
 <?php
     include_once 'footer.php';

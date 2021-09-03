@@ -32,6 +32,7 @@ if (isset($_POST["compOutSubmit"])) {
 <div class="container input-group mb-3">
     <form action="compcheckout.php" method="post">
         <input type="text" name="ptName" placeholder="Name" id="nameInput" autofocus>
+        <label for="comp">Comp:</label>
         <select name="comp">
             <option value="None">None</option>
             <option value="Laptop 1">Laptop 1</option>
@@ -39,13 +40,19 @@ if (isset($_POST["compOutSubmit"])) {
             <option value="Laptop 3">Laptop 3</option>
             <option value="Laptop 4">Laptop 4</option>
             <option value="Laptop 5">Laptop 5</option>
+            <option value="Chromebook 1">Chromebook 1</option>
+            <option value="Chromebook 2">Chromebook 2</option>
+            <option value="Chromebook 3">Chromebook 3</option>
+            <option value="Chromebook 4">Chromebook 4</option>
+            <option value="Chromebook 5">Chromebook 5</option>
         </select>
+        <label for="periph">Peripheral:</label>
         <select name="periph">
             <option value="None">None</option>
             <option value="Mouse">Mouse</option>
             <option value="Headphones">Headphones</option>
         </select>
-        <input class="btn btn-outline-secondary" name="compOutSubmit" value="Submit" type="submit">
+        <input name="compOutSubmit" value="Submit" type="submit">
     </form>
 </div> 
 
@@ -87,7 +94,7 @@ if (isset($_POST["compOutSubmit"])) {
                     <input type='submit' name='deleteTwo' value='Delete' class='btn btn-danger btn-sm' value='Delete'>
                     <input type='hidden' name='deleteTrans' value='$compsRow[0]'>
                 </form>
-                </td><td>" . $compsRow[1] . "</td><td>" . $compsRow[2] . "</td><td>" . $compsRow[3] . "</td><td>" . $compsRow[4] . "</td><td>" .  $compsRow[5] . "</td><td>" . 
+                </td><td>" . $compsRow[1] . "</td><td>" . date("h:i:s a", strtotime($compsRow[2])) . "</td><td>" . date("M d, Y", strtotime($compsRow[3])) . "</td><td>" . $compsRow[4] . "</td><td>" .  $compsRow[5] . "</td><td>" . 
                 "<input type='checkbox'></td>
             </tr>";
         }

@@ -4,7 +4,7 @@
 
 <title>Stats</title>
 
-<h2 class="text-center mb-5" id='dateTitle'><?php echo $_GET['inputDate'] ?> Stats</h2>
+<h2 class="text-center mb-5" id='dateTitle'>Stats</h2>
 
 
 <?php
@@ -24,7 +24,7 @@ try{
 <div class="d-flex justify-content-center">
     <form action="stats.php" method="get">
         <label>Month:</label>    
-        <input class="mb-5" type="month" name="dateInput" id="dateInput">
+        <input class="mb-5" type="month" name="dateInput" id="dateInput" value=<?php echo $inputDate ?>>
         <input type="hidden" id="inputDate" name="inputDate">
         <button class="btn btn-outline-secondary" name="dateSubmit" value="$dateInput" type="submit" id="button-addon2">Submit</button>
     </form>
@@ -66,7 +66,7 @@ try{
             echo            "<input type='submit' id='delete' name='delete' value='Delete' class='btn btn-danger btn-sm'>";
             echo        "</form>";
             echo    "</td>";
-            echo    "<td>" . $datesRow[1] . "</td><td>" . $datesRow[2] . "</td><td>" . $datesRow[3] . "</td><td>" . $datesRow[4] . "</td><td>" . $datesRow[5] . "</td>";
+            echo    "<td>" . $datesRow[1] . "</td><td>" . $datesRow[2] . "</td><td>" . date("h:i:s a", strtotime($datesRow[3])) . "</td><td>" . date("M d, Y", strtotime($datesRow[4])) . "</td><td>" . $datesRow[5] . "</td>";
             echo "</tr>";
         }
     ?>

@@ -12,7 +12,7 @@
     </a>
     <div>
         <ul class="navbar-nav ml-auto mt-2">
-            <li class="nav-item"><a class="nav-link" href='index.php'>Home</a></li>
+            <li class="nav-item"><a class="nav-link" href='index.php'>Sign In</a></li>
             <li class="nav-item"><a class="nav-link" href='add.php'>Add Patron</a></li>
             <li class="nav-item"><a class="nav-link" href='history.php'>History</a></li>
             <li class="nav-item"><a class="nav-link" href='stats.php'>Stats</a></li>
