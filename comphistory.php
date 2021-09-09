@@ -39,6 +39,7 @@ try{
         <th scope="col">Date</th>
         <th scope="col">Computer</th>
         <th scope="col">Peripheral</th>
+        <th scope="col">Returned</th>
     </tr>
   </thead>
   <tbody id="tBody">
@@ -63,7 +64,20 @@ try{
             echo            "<input type='submit' id='delete' name='delete' value='Delete' class='btn btn-danger btn-sm'>";
             echo        "</form>";
             echo    "</td>";
-            echo    "<td>" . $datesRow[1] . "</td><td>" . date("h:i:s a", strtotime($datesRow[2])) . "</td><td>" . date("M d, Y", strtotime($datesRow[3])) . "</td><td>" . $datesRow[4] . "</td><td>" . $datesRow[5] . "</td>";
+            echo    "<td>" . $datesRow[1] . "</td>";
+            echo    "<td>" . date("h:i:s a", strtotime($datesRow[2])) . "</td>";
+            echo    "<td>" . date("M d, Y", strtotime($datesRow[3])) . "</td>";
+            echo    "<td>" . $datesRow[4] . "</td>";
+            echo    "<td>" . $datesRow[5] . "</td>";
+                if ($datesRow[6] == 1) {
+            echo    "<td>yes</td>";
+                }
+                else if ($datesRow[6] == 0) {
+            echo    "<td>no</td>";
+                }
+                else {
+            echo    "<td>?</td>";
+                }    
             echo "</tr>";
         }
     ?>
