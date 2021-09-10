@@ -75,14 +75,19 @@ if (isset($_POST["bcSubmit"])) {
             $pdo->exec($addNotesQuery);
         }
 
-        // list today's patrons query
-        $getCurDateStats = "SELECT * FROM SignIn WHERE date = DATE('now', 'localtime');";
+        // list today's patrons query in descending order to show latest at top
+        $getCurDateStats = "SELECT * FROM SignIn WHERE date = DATE('now', 'localtime') ORDER BY transid DESC;";
         $curDateStats = $pdo->query($getCurDateStats);
-        $i = 1;
+
+        // get the number of rows returned from the last statement to number rows
+        $ctStatement = "SELECT COUNT(*) FROM SignIn WHERE date = DATE('now', 'localtime');";
+        $ctStatementQuery = $pdo->query($ctStatement);
+        $i = $ctStatementQuery->fetchColumn();
+        
         foreach ($curDateStats as $cdsRow) {
             echo 
-            "<tr>
-                <td>" . $i++ . "</td>
+            "<tr class='trows'>
+                <td>" . $i-- . "</td>
                 <td> 
                 <form action='index.php' method='post'>
                     <input type='submit' name='deleteTwo' value='Delete' class='btn btn-danger btn-sm' value='Delete'>
