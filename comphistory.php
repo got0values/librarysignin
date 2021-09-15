@@ -2,90 +2,101 @@
     include_once 'header.php';
 ?>
 
-<title>Computer History</title>
+<div id="main">
 
-<h2 class="text-center mb-5" id='dateTitle'>Computer History</h2>
+    <title>Computer History</title>
 
-<?php
-try{
-    // connect to sqlitedb
-    $pdo = new PDO('sqlite:signin.db');
+    <h2 class="text-center mb-5" id='dateTitle'>Computer History</h2>
 
-    // obtain date of wanted history
-    $inputDate = $_GET['inputDate'];
-
-} catch (PDOException $e) {
-    echo $e->getMessage();
-}
-
-?>
-
-<div class="d-flex justify-content-center">
-    <form action="comphistory.php" method="get">
-        <label>Date:</label>    
-        <input class="mb-5" type="date" name="dateInput" id="dateInput" value=<?php echo $inputDate ?>>
-        <input type="hidden" id="inputDate" name="inputDate">
-        <button class="btn btn-outline-secondary" name="dateSubmit" value="$dateInput" type="submit" id="button-addon2">Submit</button>
-    </form>
-</div> 
-
-<table class="table table-hover container">
-  <thead>
-    <tr>
-        <th scope="col"></th>    
-        <th scope="col"></th>
-        <th scope="col">Name</th>
-        <th scope="col">Time</th>
-        <th scope="col">Date</th>
-        <th scope="col">Computer</th>
-        <th scope="col">Peripheral</th>
-        <th scope="col">Returned</th>
-    </tr>
-  </thead>
-  <tbody id="tBody">
     <?php
+    try{
+        // connect to sqlitedb
         $pdo = new PDO('sqlite:signin.db');
-        $getDateInput = "SELECT * FROM CompOut WHERE date = '$inputDate'";
-        $getSelDateStats = $pdo->query($getDateInput);       
-        if(isset($_GET['delete'])) {    
-            $inputDate = $_GET['inputDate'];
-            $transid = $_GET['datesRow'];
-            $delQuery = "DELETE FROM CompOut WHERE transid = '$transid'";
-            $pdo->query($delQuery);
-        };
-        $i = 1;
-        foreach ($getSelDateStats as $datesRow) {
-            echo "<tr>";
-            echo    "<td>" . $i++ . "</td>";
-            echo    "<td>";
-            echo        "<form action='comphistory.php' method='get'>";
-            echo            "<input type='hidden' name='inputDate' value='$inputDate'>";
-            echo            "<input type='hidden' name='datesRow' value='$datesRow[0]'>";
-            echo            "<input type='submit' id='delete' name='delete' value='Delete' class='btn btn-danger btn-sm'>";
-            echo        "</form>";
-            echo    "</td>";
-            echo    "<td>" . $datesRow[1] . "</td>";
-            echo    "<td>" . date("h:i:s a", strtotime($datesRow[2])) . "</td>";
-            echo    "<td>" . date("M d, Y", strtotime($datesRow[3])) . "</td>";
-            echo    "<td>" . $datesRow[4] . "</td>";
-            echo    "<td>" . $datesRow[5] . "</td>";
-                if ($datesRow[6] == 1) {
-            echo    "<td>yes</td>";
-                }
-                else if ($datesRow[6] == 0) {
-            echo    "<td>no</td>";
-                }
-                else {
-            echo    "<td>?</td>";
-                }    
-            echo "</tr>";
-        }
+
+        // obtain date of wanted history
+        $inputDate = $_GET['inputDate'];
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+
     ?>
-  </tbody>
-</table>
+
+    <div class="d-flex justify-content-center">
+        <form action="comphistory.php" method="get">
+            <label>Date:</label>    
+            <input class="mb-5" type="date" name="dateInput" id="dateInput" value=<?php echo $inputDate ?>>
+            <input type="hidden" id="inputDate" name="inputDate">
+            <button class="btn btn-outline-secondary" name="dateSubmit" value="$dateInput" type="submit" id="button-addon2">Submit</button>
+        </form>
+    </div> 
+
+    <table class="table table-hover container">
+    <thead>
+        <tr>
+            <th scope="col"></th>    
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Time</th>
+            <th scope="col">Date</th>
+            <th scope="col">Computer</th>
+            <th scope="col">Peripheral</th>
+            <th scope="col">Returned</th>
+        </tr>
+    </thead>
+    <tbody id="tBody">
+        <?php
+            $pdo = new PDO('sqlite:signin.db');
+            $getDateInput = "SELECT * FROM CompOut WHERE date = '$inputDate'";
+            $getSelDateStats = $pdo->query($getDateInput);       
+            if(isset($_GET['delete'])) {    
+                $inputDate = $_GET['inputDate'];
+                $transid = $_GET['datesRow'];
+                $delQuery = "DELETE FROM CompOut WHERE transid = '$transid'";
+                $pdo->query($delQuery);
+            };
+            $i = 1;
+            foreach ($getSelDateStats as $datesRow) {
+                echo "<tr>";
+                echo    "<td>" . $i++ . "</td>";
+                echo    "<td>";
+                echo        "<form action='comphistory.php' method='get'>";
+                echo            "<input type='hidden' name='inputDate' value='$inputDate'>";
+                echo            "<input type='hidden' name='datesRow' value='$datesRow[0]'>";
+                echo            "<input type='submit' id='delete' name='delete' value='Delete' class='btn btn-danger btn-sm'>";
+                echo        "</form>";
+                echo    "</td>";
+                echo    "<td>" . $datesRow[1] . "</td>";
+                echo    "<td>" . date("h:i:s a", strtotime($datesRow[2])) . "</td>";
+                echo    "<td>" . date("M d, Y", strtotime($datesRow[3])) . "</td>";
+                echo    "<td>" . $datesRow[4] . "</td>";
+                echo    "<td>" . $datesRow[5] . "</td>";
+                    if ($datesRow[6] == 1) {
+                echo    "<td>yes</td>";
+                    }
+                    else if ($datesRow[6] == 0) {
+                echo    "<td>no</td>";
+                    }
+                    else {
+                echo    "<td>?</td>";
+                    }    
+                echo "</tr>";
+            }
+        ?>
+    </tbody>
+    </table>
 
 
-<script type="text/javascript" src="history.js"></script>
+    <script type="text/javascript" src="history.js"></script>
+
+    <script>
+        let navListItem = document.querySelectorAll(".nav-list-item")
+        let navLink = document.querySelectorAll(".nav-link")
+        navLink[5].style.color = "black";
+        navListItem[5].style.backgroundColor = "lightskyblue";
+    </script>
+
+</div>
 
 <?php
     include_once 'footer.php';
