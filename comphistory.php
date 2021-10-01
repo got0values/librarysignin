@@ -15,6 +15,7 @@
 
         // obtain date of wanted history
         $inputDate = $_GET['inputDate'];
+        $inputDate2 = $_GET['inputDate2'];
 
     } catch (PDOException $e) {
         echo $e->getMessage();
@@ -25,9 +26,10 @@
     <div class="d-flex justify-content-center">
         <form action="comphistory.php" method="get">
             <label>Date:</label>    
-            <input class="mb-5" type="date" name="dateInput" id="dateInput" value=<?php echo $inputDate ?>>
-            <input type="hidden" id="inputDate" name="inputDate">
-            <button class="btn btn-outline-secondary" name="dateSubmit" value="$dateInput" type="submit" id="button-addon2">Submit</button>
+            <input class="mb-5" type="date" name="inputDate" value=<?php echo $inputDate ?>>
+             - 
+            <input class="mb-5" type="date" name="inputDate2" value=<?php echo $inputDate2 ?>>
+            <input class="btn btn-outline-secondary" name="dateSubmit" type="submit">
         </form>
     </div> 
 
@@ -47,7 +49,7 @@
     <tbody id="tBody">
         <?php
             $pdo = new PDO('sqlite:signin.db');
-            $getDateInput = "SELECT * FROM CompOut WHERE date = '$inputDate'";
+            $getDateInput = "SELECT * FROM CompOut WHERE date BETWEEN '$inputDate' AND '$inputDate2'";
             $getSelDateStats = $pdo->query($getDateInput);       
             if(isset($_GET['delete'])) {    
                 $inputDate = $_GET['inputDate'];
@@ -60,7 +62,7 @@
                 echo "<tr>";
                 echo    "<td>" . $i++ . "</td>";
                 echo    "<td>";
-                echo        "<form action='comphistory.php' method='get'>";
+                echo        "<form action='../signin/comphistory.php' method='get'>";
                 echo            "<input type='hidden' name='inputDate' value='$inputDate'>";
                 echo            "<input type='hidden' name='datesRow' value='$datesRow[0]'>";
                 echo            "<input type='submit' id='delete' name='delete' value='Delete' class='btn btn-danger btn-sm'>";
@@ -87,7 +89,7 @@
     </table>
 
 
-    <script type="text/javascript" src="history.js"></script>
+    <!-- <script type="text/javascript" src="../signin/history.js"></script> -->
 
     <script>
         let navListItem = document.querySelectorAll(".nav-list-item")

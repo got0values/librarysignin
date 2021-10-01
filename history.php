@@ -13,21 +13,24 @@
         // connect to sqlitedb
         $pdo = new PDO('sqlite:signin.db');
 
-        // obtain date of wanted history
-        $inputDate = $_GET['inputDate'];
-
     } catch (PDOException $e) {
         echo $e->getMessage();
+    }
+
+    if (isset($_GET['dateSubmit'])) {
+        $inputDate = $_GET['inputDate'];
+        $inputDate2 = $_GET['inputDate2'];
     }
 
     ?>
 
     <div class="d-flex justify-content-center">
         <form action="history.php" method="get">
-            <label>Date:</label>    
-            <input class="mb-5" type="date" name="dateInput" id="dateInput" value=<?php echo $_GET['inputDate'] ?>>
-            <input type="hidden" id="inputDate" name="inputDate">
-            <button class="btn btn-outline-secondary" name="dateSubmit" value="$dateInput" type="submit" id="button-addon2">Submit</button>
+            <label>Date Range:</label>    
+            <input class="mb-5" type="date" name="inputDate" id="inputDate" value=<?php echo $inputDate ?>>
+             - 
+            <input class="mb-5" type="date" name="inputDate2" id="inputDate2" value=<?php echo $inputDate2 ?>>
+            <input type="submit" class="btn btn-outline-secondary" name="dateSubmit" id="button-addon2">
         </form>
     </div> 
 
@@ -44,9 +47,10 @@
         </tr>
     </thead>
     <tbody id="tBody">
-        <?php
+        <?php 
             $pdo = new PDO('sqlite:signin.db');
-            $getDateInput = "SELECT * FROM SignIn WHERE date = '$inputDate'";
+            //$getDateInput = "SELECT * FROM SignIn WHERE date = '$inputDate'";            
+            $getDateInput = "SELECT * FROM SignIn WHERE date BETWEEN '$inputDate' AND '$inputDate2'";
             $getSelDateStats = $pdo->query($getDateInput);       
             if(isset($_GET['delete'])) {    
                 $inputDate = $_GET['inputDate'];
@@ -73,7 +77,7 @@
     </table>
 
 
-    <script type="text/javascript" src="history.js"></script>
+    <!-- <script type="text/javascript" src="history.js"></script> -->
 
     <script>
         let navListItem = document.querySelectorAll(".nav-list-item")

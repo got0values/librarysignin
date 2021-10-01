@@ -52,7 +52,7 @@
         // delete query and execution
         if (isset($_POST['deletePatronButton'])) {
             $patronCard = $_POST['patronCard'];
-            $deleteQuery = "DELETE FROM NameList WHERE card = '$patronCard'";
+            $deleteQuery = "DELETE FROM FMLTRACNameList WHERE card = '$patronCard'";
             $pdo->exec($deleteQuery);        
         }
 

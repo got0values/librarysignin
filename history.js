@@ -1,9 +1,12 @@
 const dateInput = document.querySelector('#dateInput');
 const inputDate = document.querySelector('#inputDate');
+const dateInput2 = document.querySelector('#dateInput2');
+const inputDate2 = document.querySelector('#inputDate2');
 const dateSubmit = document.querySelector('#button-addon2');
 
 dateInput.addEventListener('change', function() {
     inputDate.value = dateInput.value;
+    inputDat2e.value = dateInput2.value;
 })
 
 dateSubmit.addEventListener('submit', function(e) {
