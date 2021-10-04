@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../public/style.css">
     <title>Library Sign In</title>
 </head>
 <body>

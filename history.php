@@ -1,5 +1,11 @@
 <?php
-    include_once 'header.php';
+    include_once './views/header.php';
+
+    ini_set('display_errors',1);
+    error_reporting(-1);
+
+    require_once("./controller/historycontroller.php");
+    
 ?>
 
 <div id="main">
@@ -8,28 +14,12 @@
 
     <h2 class="text-center mb-5" id='dateTitle'>History</h2>
 
-    <?php
-    try{
-        // connect to sqlitedb
-        $pdo = new PDO('sqlite:signin.db');
-
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    }
-
-    if (isset($_GET['dateSubmit'])) {
-        $inputDate = $_GET['inputDate'];
-        $inputDate2 = $_GET['inputDate2'];
-    }
-
-    ?>
-
     <div class="d-flex justify-content-center">
         <form action="history.php" method="get">
             <label>Date Range:</label>    
-            <input class="mb-5" type="date" name="inputDate" id="inputDate" value=<?php echo $inputDate ?>>
+            <input class="mb-5" type="date" name="inputDate" id="inputDate" value=<?php if (isset($inputDate)) {echo $inputDate;} ?>>
              - 
-            <input class="mb-5" type="date" name="inputDate2" id="inputDate2" value=<?php echo $inputDate2 ?>>
+            <input class="mb-5" type="date" name="inputDate2" id="inputDate2" value=<?php if (isset($inputDate2)) {echo $inputDate2;} ?>>
             <input type="submit" class="btn btn-outline-secondary" name="dateSubmit" id="button-addon2">
         </form>
     </div> 
@@ -47,37 +37,27 @@
         </tr>
     </thead>
     <tbody id="tBody">
-        <?php 
-            $pdo = new PDO('sqlite:signin.db');
-            //$getDateInput = "SELECT * FROM SignIn WHERE date = '$inputDate'";            
-            $getDateInput = "SELECT * FROM SignIn WHERE date BETWEEN '$inputDate' AND '$inputDate2'";
-            $getSelDateStats = $pdo->query($getDateInput);       
-            if(isset($_GET['delete'])) {    
-                $inputDate = $_GET['inputDate'];
-                $transid = $_GET['datesRow'];
-                $delQuery = "DELETE FROM SignIn WHERE transid = '$transid'";
-                $pdo->query($delQuery);
-            };
+        <?php
             $i = 1;
-            foreach ($getSelDateStats as $datesRow) {
-                echo "<tr>";
-                echo    "<td>" . $i++ . "</td>";
-                echo    "<td>";
-                echo        "<form action='history.php' method='get'>";
-                echo            "<input type='hidden' name='inputDate' value='$inputDate'>";
-                echo            "<input type='hidden' name='datesRow' value='$datesRow[0]'>";
-                echo            "<input type='submit' id='delete' name='delete' value='Delete' class='btn btn-danger btn-sm'>";
-                echo        "</form>";
-                echo    "</td>";
-                echo    "<td>" . $datesRow[1] . "</td><td>" . $datesRow[2] . "</td><td>" . date("h:i:s a", strtotime($datesRow[3])) . "</td><td>" . date("M d, Y", strtotime($datesRow[4])) . "</td><td>" . $datesRow[5] . "</td>";
-                echo "</tr>";
+            if (isset($getSelDateStats)) {
+                foreach ($getSelDateStats as $datesRow) {
+                    echo "<tr>";
+                    echo    "<td>" . $i++ . "</td>";
+                    echo    "<td>";
+                    echo        "<form action='history.php' method='get'>";
+                    echo            "<input type='hidden' name='inputDate' value='$inputDate'>";
+                    echo            "<input type='hidden' name='inputDate2' value='$inputDate2'>";
+                    echo            "<input type='hidden' name='datesRow' value='$datesRow[0]'>";
+                    echo            "<input type='submit' id='delete' name='delete' value='Delete' class='btn btn-danger btn-sm'>";
+                    echo        "</form>";
+                    echo    "</td>";
+                    echo    "<td>" . $datesRow[1] . "</td><td>" . $datesRow[2] . "</td><td>" . date("h:i:s a", strtotime($datesRow[3])) . "</td><td>" . date("M d, Y", strtotime($datesRow[4])) . "</td><td>" . $datesRow[5] . "</td>";
+                    echo "</tr>";
+                }
             }
         ?>
     </tbody>
     </table>
-
-
-    <!-- <script type="text/javascript" src="history.js"></script> -->
 
     <script>
         let navListItem = document.querySelectorAll(".nav-list-item")
@@ -89,5 +69,5 @@
 </div>
 
 <?php
-    include_once 'footer.php';
+    include_once './views/footer.php';
 ?>

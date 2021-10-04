@@ -1,9 +1,11 @@
 <?php
-    include_once 'header.php';
+    include_once './views/header.php';
     
     ini_set('display_errors',1);
     error_reporting(-1);
 
+
+    require_once("./controller/index.php");
 ?>
 
 <div id="main">
@@ -11,32 +13,6 @@
     <title>Sign In</title>
 
     <h2 class="text-center mb-5">Sign In</h2>
-
-    <?php
-    if (isset($_POST["bcSubmit"])) {
-        try{
-            // connect to sqlitedb
-            $pdo = new PDO('sqlite:signin.db');
-
-            // obtain name from barcode number
-            $bcNum = $_POST['bcNum'];
-            $getNameStatement = "SELECT name FROM FMLTRACNameList WHERE card = '$bcNum';";
-            $results = $pdo->query($getNameStatement);
-            $row = $results->fetch();
-            $rowZero = $row[0];
-            // foreach ($results as $row) {
-            //     $newName = $row[0];
-            // }   
-            
-            // insert transaction into db
-            $signInStatement = "INSERT into SignIn (card, name, time, date, notes) VALUES ('$bcNum', '$rowZero', TIME('now', 'localtime'), DATE('now', 'localtime'), NULL);";
-            $pdo->query($signInStatement);
-
-        }catch (PDOException $e) {
-            echo $e -> getMessage();
-        }
-    }
-    ?>
 
     <div class="container input-group mb-3">
         <form action="index.php" method="post">
@@ -59,33 +35,7 @@
     </thead>
     <tbody id="tBody">
         <?php
-            $pdo = new PDO('sqlite:signin.db');
-            // $pdo->query($cardQuery);
-
-            // delete query and execution
-            if(isset($_POST["deleteTwo"])) {
-                $transidTwo = $_POST['deleteTrans'];               
-                $deleteSigninQuery = "DELETE FROM SignIn WHERE transid = '$transidTwo'";
-                $pdo->query($deleteSigninQuery);
-            }
-
-            // add notes query and execution
-            if (isset($_POST['notesButton'])) {
-                $notesText = $_POST['notesText'];
-                $transIdThree = $_POST['transIdThree'];
-                $addNotesQuery = "UPDATE SignIn SET notes = '$notesText' WHERE transid = '$transIdThree'";
-                $pdo->exec($addNotesQuery);
-            }
-
-            // list today's patrons query in descending order to show latest at top
-            $getCurDateStats = "SELECT * FROM SignIn WHERE date = DATE('now', 'localtime') ORDER BY transid DESC;";
-            $curDateStats = $pdo->query($getCurDateStats);
-
-            // get the number of rows returned from the last statement to number rows
-            $ctStatement = "SELECT COUNT(*) FROM SignIn WHERE date = DATE('now', 'localtime');";
-            $ctStatementQuery = $pdo->query($ctStatement);
-            $i = $ctStatementQuery->fetchColumn();
-            
+        if(isset($curDateStats)) {
             foreach ($curDateStats as $cdsRow) {
                 echo 
                 "<tr class='trows'>
@@ -104,6 +54,7 @@
                     "</td>
                 </tr>";
             }
+        }
         ?>
     </tbody>
     </table>
@@ -118,5 +69,5 @@
 </div>
 
 <?php
-    include_once 'footer.php';
+    include_once './views/footer.php';
 ?>

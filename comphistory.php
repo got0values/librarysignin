@@ -1,5 +1,10 @@
 <?php
-    include_once 'header.php';
+    include_once './views/header.php';
+
+    ini_set('display_errors',1);
+    error_reporting(-1);
+
+    include_once("./controller/comphistorycontroller.php");
 ?>
 
 <div id="main">
@@ -8,27 +13,12 @@
 
     <h2 class="text-center mb-5" id='dateTitle'>Computer History</h2>
 
-    <?php
-    try{
-        // connect to sqlitedb
-        $pdo = new PDO('sqlite:signin.db');
-
-        // obtain date of wanted history
-        $inputDate = $_GET['inputDate'];
-        $inputDate2 = $_GET['inputDate2'];
-
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    }
-
-    ?>
-
     <div class="d-flex justify-content-center">
         <form action="comphistory.php" method="get">
             <label>Date:</label>    
-            <input class="mb-5" type="date" name="inputDate" value=<?php echo $inputDate ?>>
+            <input class="mb-5" type="date" name="inputDate" value=<?php if (isset($_GET['dateSubmit'])) {echo $inputDate;} ?>>
              - 
-            <input class="mb-5" type="date" name="inputDate2" value=<?php echo $inputDate2 ?>>
+            <input class="mb-5" type="date" name="inputDate2" value=<?php if (isset($_GET['dateSubmit'])) {echo $inputDate2;} ?>>
             <input class="btn btn-outline-secondary" name="dateSubmit" type="submit">
         </form>
     </div> 
@@ -48,41 +38,35 @@
     </thead>
     <tbody id="tBody">
         <?php
-            $pdo = new PDO('sqlite:signin.db');
-            $getDateInput = "SELECT * FROM CompOut WHERE date BETWEEN '$inputDate' AND '$inputDate2'";
-            $getSelDateStats = $pdo->query($getDateInput);       
-            if(isset($_GET['delete'])) {    
-                $inputDate = $_GET['inputDate'];
-                $transid = $_GET['datesRow'];
-                $delQuery = "DELETE FROM CompOut WHERE transid = '$transid'";
-                $pdo->query($delQuery);
-            };
             $i = 1;
-            foreach ($getSelDateStats as $datesRow) {
-                echo "<tr>";
-                echo    "<td>" . $i++ . "</td>";
-                echo    "<td>";
-                echo        "<form action='../signin/comphistory.php' method='get'>";
-                echo            "<input type='hidden' name='inputDate' value='$inputDate'>";
-                echo            "<input type='hidden' name='datesRow' value='$datesRow[0]'>";
-                echo            "<input type='submit' id='delete' name='delete' value='Delete' class='btn btn-danger btn-sm'>";
-                echo        "</form>";
-                echo    "</td>";
-                echo    "<td>" . $datesRow[1] . "</td>";
-                echo    "<td>" . date("h:i:s a", strtotime($datesRow[2])) . "</td>";
-                echo    "<td>" . date("M d, Y", strtotime($datesRow[3])) . "</td>";
-                echo    "<td>" . $datesRow[4] . "</td>";
-                echo    "<td>" . $datesRow[5] . "</td>";
-                    if ($datesRow[6] == 1) {
-                echo    "<td>yes</td>";
-                    }
-                    else if ($datesRow[6] == 0) {
-                echo    "<td>no</td>";
-                    }
-                    else {
-                echo    "<td>?</td>";
-                    }    
-                echo "</tr>";
+            if (isset($getSelDateStats)){
+                foreach ($getSelDateStats as $datesRow) {
+                    echo "<tr>";
+                    echo    "<td>" . $i++ . "</td>";
+                    echo    "<td>";
+                    echo        "<form action='comphistory.php' method='get'>";
+                    echo            "<input type='hidden' name='inputDate' value='$inputDate'>";
+                    echo            "<input type='hidden' name='inputDate2' value='$inputDate2'>";
+                    echo            "<input type='hidden' name='datesRow' value='$datesRow[0]'>";
+                    echo            "<input type='submit' id='delete' name='delete' value='Delete' class='btn btn-danger btn-sm'>";
+                    echo        "</form>";
+                    echo    "</td>";
+                    echo    "<td>" . $datesRow[1] . "</td>";
+                    echo    "<td>" . date("h:i:s a", strtotime($datesRow[2])) . "</td>";
+                    echo    "<td>" . date("M d, Y", strtotime($datesRow[3])) . "</td>";
+                    echo    "<td>" . $datesRow[4] . "</td>";
+                    echo    "<td>" . $datesRow[5] . "</td>";
+                        if ($datesRow[6] == 1) {
+                    echo    "<td>yes</td>";
+                        }
+                        else if ($datesRow[6] == 0) {
+                    echo    "<td>no</td>";
+                        }
+                        else {
+                    echo    "<td>?</td>";
+                        }    
+                    echo "</tr>";
+                }
             }
         ?>
     </tbody>
@@ -101,5 +85,5 @@
 </div>
 
 <?php
-    include_once 'footer.php';
+    include_once './views/footer.php';
 ?>

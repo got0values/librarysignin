@@ -1,8 +1,10 @@
 <?php
-    include_once 'header.php';
+    include_once './views/header.php';
     
     ini_set('display_errors',1);
     error_reporting(-1);
+
+    include_once("./controller/compcheckoutcontroller.php");
 
 ?>
 
@@ -11,25 +13,6 @@
     <title>Computer Check Out</title>
 
     <h2 class="text-center mb-5">Computer Check Out</h2>
-
-    <?php
-    if (isset($_POST["compOutSubmit"])) {
-        try{
-            // connect to sqlitedb
-            $pdo = new PDO('sqlite:signin.db');
-            
-            // insert transaction into db
-            $ptName = $_POST['ptName'];
-            $comp = $_POST['comp'];
-            $periph = $_POST['periph'];
-            $compOutStatement = "INSERT into CompOut (name, time, date, computer, peripheral) VALUES ('$ptName', TIME('now', 'localtime'), DATE('now', 'localtime'), '$comp', '$periph');";
-            $pdo->query($compOutStatement);
-
-        }catch (PDOException $e) {
-            echo $e -> getMessage();
-        }
-    }
-    ?>
 
     <div class="container input-group mb-3">
         <form action="compcheckout.php" method="post">
@@ -74,27 +57,6 @@
     </thead>
     <tbody id="tBody">
         <?php
-            $pdo = new PDO('sqlite:signin.db');
-            // $pdo->query($cardQuery);
-
-            // delete query and execution
-            if(isset($_POST["deleteTwo"])) {
-                $transidTwo = $_POST['deleteTrans'];               
-                $deleteSigninQuery = "DELETE FROM CompOut WHERE transid = '$transidTwo'";
-                $pdo->query($deleteSigninQuery);
-            }
-
-            // saved returned query
-            if (isset($_POST['saveReturned'])) {
-                $transID = $_POST['transID'];
-                $checkbox = $_POST['checkbox'];
-                $returnedQuery = "UPDATE CompOut SET returned = '$checkbox' WHERE transid = '$transID'";
-                $pdo->exec($returnedQuery);
-            }
-
-            // list today's patron checkouts
-            $getCurDateCompStats = "SELECT * FROM CompOut WHERE date = DATE('now', 'localtime');";
-            $curDateCompStats = $pdo->query($getCurDateCompStats);
             $i = 1;
             foreach ($curDateCompStats as $compsRow) {
                 echo "<tr>";
@@ -133,7 +95,7 @@
     </table>
 
 
-    <script type="text/javascript" src="rowhighlightCompCheckout.js"></script>
+    <script type="text/javascript" src="./public/rowhighlightCompCheckout.js"></script>
     <script>
         let navListItem = document.querySelectorAll(".nav-list-item")
         let navLink = document.querySelectorAll(".nav-link")
@@ -144,5 +106,5 @@
 </div>
 
 <?php
-    include_once 'footer.php';
+    include_once './views/footer.php';
 ?>

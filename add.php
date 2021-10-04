@@ -1,5 +1,10 @@
 <?php
-    include_once 'header.php';
+    include_once './views/header.php';
+
+    ini_set('display_errors',1);
+    error_reporting(-1);
+
+    require_once("./controller/addcontroller.php");
 ?>
 
 <div id="main">
@@ -7,29 +12,6 @@
     <title>Add Card</title>
 
     <h2 class="text-center mb-5">Add Card</h2>
-
-    <?php
-    if (isset($_POST["namecardsubmit"])) {
-        try{
-            // connect to sqlitedb
-            $pdo = new PDO('sqlite:signin.db');
-
-            // obtain card and name
-            $inputPatronCard = $_POST['inputpatron'];
-            $inputPatronName = $_POST['inputpatron2'];
-
-            // query
-            $addQuery = "INSERT INTO FMLTRACNameList (card, name) VALUES ('$inputPatronCard','$inputPatronName')";
-
-            // execute pdo add query
-            $pdo->query($addQuery);
-
-        }catch (PDOException $e) {
-            echo $e -> getMessage();
-        }
-    }
-    ?>
-
 
     <div class="container input-group mb-3">
         <form action="" method="post">
@@ -42,20 +24,6 @@
     </div> 
 
     <?php
-        $pdo = new PDO('sqlite:signin.db');
-
-        // list query
-        $cardQuery = "SELECT * FROM FMLTRACNameList";
-        // execute pdo list query
-        $cardQueryResult = $pdo->query($cardQuery);
-
-        // delete query and execution
-        if (isset($_POST['deletePatronButton'])) {
-            $patronCard = $_POST['patronCard'];
-            $deleteQuery = "DELETE FROM FMLTRACNameList WHERE card = '$patronCard'";
-            $pdo->exec($deleteQuery);        
-        }
-
         echo "<table class='table table-hover container'>";
         echo "<th class='text-center'></th><th class='text-center'></th><th class='text-center'>" . 'Barcode' . "</th><th class='text-center'>" . 'Name' . "</th>";
         echo "<tbody>";
@@ -76,7 +44,6 @@
         
     ?>
 
-    <!-- <script type="text/javascript" src="add.js"></script> -->
     <script>
         let navListItem = document.querySelectorAll(".nav-list-item")
         let navLink = document.querySelectorAll(".nav-link")
@@ -87,5 +54,5 @@
 </div>
 
 <?php
-    include_once 'footer.php';
+    include_once './views/footer.php';
 ?>
