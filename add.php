@@ -25,7 +25,7 @@
 
     <?php
         echo "<table class='table table-hover container'>";
-        echo "<th class='text-center'></th><th class='text-center'></th><th class='text-center'>" . 'Barcode' . "</th><th class='text-center'>" . 'Name' . "</th>";
+        echo "<th class='text-center'></th><th class='text-center'></th><th class='text-center'>" . 'Name' . "</th><th class='text-center'>" . 'Barcode' . "</th>";
         echo "<tbody>";
         $i = 1; 
         foreach($cardQueryResult as $cardRow) {
@@ -34,7 +34,7 @@
             echo 
             "<td class='text-center'><form action='add.php' method='post'>
                 <input type='submit' name='deletePatronButton' class='btn btn-danger btn-sm' value='Delete'>
-                <input type='hidden' name='patronCard' value='$cardRow[0]'>
+                <input type='hidden' name='patronCard' value='$cardRow[1]'>
             </form></td>";
             echo "<td class='text-center'>" . $cardRow[0] . "</td><td class='text-center'>" . $cardRow[1] . "</td>";
             echo "</tr>";

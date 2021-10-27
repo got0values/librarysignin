@@ -1,5 +1,11 @@
 <?php
-    require_once("./models/database.php");
+    try{
+        // connect to sqlitedb
+        $pdo = new PDO('sqlite:./models/signin.db');
+    }
+    catch (PDOException $e) {
+        echo $e->getMessage();
+    }
 
     $inputDate = Date("M/dd/yyyy");
     
@@ -9,9 +15,13 @@
     }
 
     //get month's signins
-    include_once("./models/getcompinputdate.php");
+    $getDateInput = "SELECT * FROM CompOut WHERE date LIKE '$inputDate%'";
+    $getSelDateStats = $pdo->query($getDateInput);
 
     //delete a row
     if(isset($_GET['delete'])) {
-        include_once("./models/deletecompstatsrow.php");
+        $inputDate = $_GET['inputDate'];
+        $transid = $_GET['datesRow'];
+        $delQuery = "DELETE FROM CompOut WHERE transid = '$transid'";
+        $pdo->query($delQuery);
     };
