@@ -1,72 +1,148 @@
 <?php
-    include_once './views/header.php';
-    
-    ini_set('display_errors',1);
-    error_reporting(-1);
+include_once 'Request.php';
+include_once 'Router.php';
+$router = new Router(new Request);
 
-    require_once("./controller/index.php");
-?>
+include './model/dbmodel.php';
 
-<div id="main">
+include './controller/reloadindex.php';
+include './controller/reloadadd.php';
+include './controller/gethistory.php';
+include './controller/loadcompcheckout.php';
+include './controller/getcomphistory.php';
 
-    <title>Sign In</title>
+$router->get('/', function() {
+        reloadindex();
+    });
 
-    <h2 class="text-center mb-5">Sign In</h2>
+$router->get('/add', function() {
+        reloadadd();
+    });
 
-    <div class="container input-group mb-3">
-        <form action="index.php" method="post">
-            <input type="text" name="bcNum" placeholder="Barcode" id="bcInput" autofocus>
-            <input class="btn btn-outline-secondary" name="bcSubmit" value="Submit" type="submit">
-        </form>
-    </div> 
+$router->get('/history', function() {       
+        include_once './views/history.php';
+    });
 
-    <table class="table table-hover container">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Delete</th>
-            <th scope="col">Barcode</th>
-            <th scope="col">Name</th>
-            <th scope="col">Time</th>
-            <th scope="col">Date</th>
-            <th scope="col">Notes</th>
-        </tr>
-    </thead>
-    <tbody id="tBody">
-        <?php
-        if(isset($curDateStats)) {
-            foreach ($curDateStats as $cdsRow) {
-                echo 
-                "<tr class='trows'>
-                    <td>" . $i-- . "</td>
-                    <td> 
-                    <form action='index.php' method='post'>
-                        <input type='submit' name='deleteTwo' value='Delete' class='btn btn-danger btn-sm' value='Delete'>
-                        <input type='hidden' name='deleteTrans' value='$cdsRow[0]'>
-                    </form>
-                    </td><td>" . $cdsRow[1] . "</td><td>" . $cdsRow[2] . "</td><td>" . date("h:i:s a", strtotime($cdsRow[3])) . "</td><td>" . date("M d, Y", strtotime($cdsRow[4])) . "</td><td>" .  
-                    "<form action='index.php' method='post'>
-                        <input type='text' name='notesText' value='$cdsRow[5]'>
-                        <input type='submit' name='notesButton' value='Save'>
-                        <input type='hidden' name='transIdThree' value='$cdsRow[0]'>                    
-                    </form>" . 
-                    "</td>
-                </tr>";
-            }
-        }
-        ?>
-    </tbody>
-    </table>
+$router->get('/compcheckout', function($request) {
+        loadcompcheckout();
+    });
 
-<script>
-    let navListItem = document.querySelectorAll(".nav-list-item")
-    let navLink = document.querySelectorAll(".nav-link")
-    navLink[0].style.color = "black";
-    navListItem[0].style.backgroundColor = "lightskyblue";
-</script>
+$router->get('/comphistory', function($request) {
+        include_once './views/comphistory.php';        
+    });
 
-</div>
 
-<?php
-    include_once './views/footer.php';
-?>
+// insert transaction into db
+$router->post('/submitsignin', function($request) {
+        $DB = new DB();
+
+        //get card number input and match with name in database
+        $bcNum = $_POST['bcNum'];
+        $getNameStatement = "SELECT name FROM FMLTRACNameList WHERE card = '$bcNum'";
+        $results = $DB->select($getNameStatement, array());
+        $row = $results;
+        $rowZero = $row[0][0];
+        $signInStatement = "INSERT into SignIn (card, name, time, date, notes) VALUES ('$bcNum', '$rowZero', TIME('now', 'localtime'), DATE('now', 'localtime'), NULL);";
+        $DB->select($signInStatement, array());
+
+        reloadindex();
+    });
+
+$router->post('/deletesignin', function($request) {
+        $DB = new DB();
+
+        $transidTwo = $_POST['deleteTrans'];               
+        $deleteSigninQuery = "DELETE FROM SignIn WHERE transid = '$transidTwo'";
+        $DB->select($deleteSigninQuery, array());
+
+        reloadindex();
+    });
+
+$router->post('/addnotes', function($request) {
+        $DB = new DB();
+        
+        $notesText = $_POST['notesText'];
+        $transIdThree = $_POST['transIdThree'];
+        $addNotesQuery = "UPDATE SignIn SET notes = '$notesText' WHERE transid = '$transIdThree'";
+        $DB->select($addNotesQuery, array());
+
+        reloadindex();
+    });
+
+$router->post('/addnamecard', function($request) {
+        $DB = new DB();
+
+        // obtain card and name
+        $inputPatronCard = $_POST['inputpatron'];
+        $inputPatronName = $_POST['inputpatron2'];
+        // query
+        $addQuery = "INSERT INTO FMLTRACNameList (card, name) VALUES ('$inputPatronCard','$inputPatronName')";
+        $DB->select($addQuery, array());
+
+        reloadadd();
+    });
+
+$router->post('/deletenamecard', function($request) {
+        $DB = new DB();
+
+        $patronCard = $_POST['patronCard'];
+        $deleteQuery = "DELETE FROM FMLTRACNameList WHERE card = '$patronCard'";
+        $DB->select($deleteQuery, array());
+
+        reloadadd();       
+    });
+
+$router->post('/gethistory', function($request) {
+        gethistory();
+    });
+
+$router->post('/deletehistory', function($request) {
+        $DB = new DB();
+        $inputDate = $_POST['inputDate'];
+        $inputDate2 = $_POST['inputDate2'];
+        $transid = $_POST['datesRow'];
+        $delQuery = "DELETE FROM SignIn WHERE transid = '$transid'";
+        $DB->select($delQuery, array());        
+        gethistory();
+    });
+
+$router->post('/submitcompcheckout', function($request) {
+        $DB = new DB();
+        $ptName = $_POST['ptName'];
+        $comp = $_POST['comp'];
+        $periph = $_POST['periph'];
+        $compOutStatement = "INSERT into CompOut (name, time, date, computer, peripheral) VALUES ('$ptName', TIME('now', 'localtime'), DATE('now', 'localtime'), '$comp', '$periph');";
+        $DB->select($compOutStatement, array());      
+        loadcompcheckout();
+    });
+
+$router->post('/deletecompcheckout', function($request) {
+        $DB = new DB();
+        $transidTwo = $_POST['deleteTrans'];               
+        $deleteSigninQuery = "DELETE FROM CompOut WHERE transid = '$transidTwo'";
+        $DB->select($deleteSigninQuery, array());      
+        loadcompcheckout();
+    });
+
+$router->post('/savereturned', function($request) {
+        $DB = new DB();
+        $transID = $_POST['transID'];
+        $checkbox = $_POST['checkbox'];
+        $returnedQuery = "UPDATE CompOut SET returned = '$checkbox' WHERE transid = '$transID'";
+        $DB->select($returnedQuery, array());  
+        loadcompcheckout();
+    });
+
+$router->post('/getcomphistory', function() {
+        getcomphistory();
+    });
+
+$router->post('/deletecomphistory', function() {
+        $DB = new DB();
+        $inputDate = $_POST['inputDate'];
+        $inputDate2 = $_POST['inputDate2'];
+        $transid = $_POST['datesRow'];
+        $delQuery = "DELETE FROM CompOut WHERE transid = '$transid'";
+        $DB->select($delQuery, array()); 
+        getcomphistory();
+    });

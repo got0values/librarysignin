@@ -14,10 +14,9 @@
             </h3>
         </div>
         <ul class="nav-list">
-            <li class="nav-list-item"><a class="nav-link" href='index.php'>Sign In</a></li>
-            <li class="nav-list-item"><a class="nav-link" href='add.php'>Add Patron</a></li>
-            <li class="nav-list-item"><a class="nav-link" href='history.php'>History</a></li>
-            <li class="nav-list-item"><a class="nav-link" href='stats.php'>Stats</a></li>
+            <li class="nav-list-item"><a class="nav-link" href='/'>Sign In</a></li>
+            <li class="nav-list-item"><a class="nav-link" href='/add'>Add Patron</a></li>
+            <li class="nav-list-item"><a class="nav-link" href='/history'>History</a></li>
         </ul>
     </div>
     <div class="nav-section">
@@ -27,9 +26,8 @@
             </h3>
         </div>
         <ul class="nav-list">
-            <li class="nav-list-item"><a class="nav-link" href='compcheckout.php'>Checkout</a></li>
-            <li class="nav-list-item"><a class="nav-link" href='comphistory.php'>History</a></li>
-            <li class="nav-list-item"><a class="nav-link" href='compstats.php'>Stats</a></li>
+            <li class="nav-list-item"><a class="nav-link" href='/compcheckout'>Checkout</a></li>
+            <li class="nav-list-item"><a class="nav-link" href='/comphistory'>History</a></li>
         </ul>
     </div>
 </nav>

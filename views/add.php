@@ -3,8 +3,6 @@
 
     ini_set('display_errors',1);
     error_reporting(-1);
-
-    require_once("./controller/addcontroller.php");
 ?>
 
 <div id="main">
@@ -14,7 +12,7 @@
     <h2 class="text-center mb-5">Add Card</h2>
 
     <div class="container input-group mb-3">
-        <form action="" method="post">
+        <form action="/addnamecard" method="post">
             <label>Card:</label>
             <input type="text" name="inputpatron">
             <label>Name:</label>
@@ -24,6 +22,8 @@
     </div> 
 
     <?php
+        echo "<div class='container'>";
+        echo    "<div class='card shadow'>";    
         echo "<table class='table table-hover container'>";
         echo "<th class='text-center'></th><th class='text-center'></th><th class='text-center'>" . 'Name' . "</th><th class='text-center'>" . 'Barcode' . "</th>";
         echo "<tbody>";
@@ -32,15 +32,17 @@
             echo "<tr>";
             echo "<td>" . $i++ . "</td>";
             echo 
-            "<td class='text-center'><form action='add.php' method='post'>
+            "<td class='text-center'><form action='/deletenamecard' method='post'>
                 <input type='submit' name='deletePatronButton' class='btn btn-danger btn-sm' value='Delete'>
-                <input type='hidden' name='patronCard' value='$cardRow[1]'>
+                <input type='hidden' name='patronCard' value='$cardRow[0]'>
             </form></td>";
-            echo "<td class='text-center'>" . $cardRow[0] . "</td><td class='text-center'>" . $cardRow[1] . "</td>";
+            echo "<td class='text-center'>" . $cardRow[1] . "</td><td class='text-center'>" . $cardRow[0] . "</td>";
             echo "</tr>";
         }
         echo "</tbody>";
         echo "</table>";
+        echo      "</div>";
+        echo   "</div>";
         
     ?>
 
