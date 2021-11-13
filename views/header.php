@@ -17,6 +17,7 @@
             <li class="nav-list-item"><a class="nav-link" href='/'>Sign In</a></li>
             <li class="nav-list-item"><a class="nav-link" href='/add'>Add Patron</a></li>
             <li class="nav-list-item"><a class="nav-link" href='/history'>History</a></li>
+            <li class="nav-list-item"><a class="nav-link" href='/addnocard'>Add No Card</a></li>
         </ul>
     </div>
     <div class="nav-section">

@@ -100,8 +100,8 @@
     <script>
         let navListItem = document.querySelectorAll(".nav-list-item")
         let navLink = document.querySelectorAll(".nav-link")
-        navLink[3].style.color = "black";
-        navListItem[3].style.backgroundColor = "lightskyblue";
+        navLink[4].style.color = "black";
+        navListItem[4].style.backgroundColor = "lightskyblue";
     </script>
 
 </div>

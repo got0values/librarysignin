@@ -8,6 +8,7 @@ include './model/dbmodel.php';
 include './controller/reloadindex.php';
 include './controller/reloadadd.php';
 include './controller/gethistory.php';
+include './controller/reloadaddnocard.php';
 include './controller/loadcompcheckout.php';
 include './controller/getcomphistory.php';
 
@@ -21,6 +22,10 @@ $router->get('/add', function() {
 
 $router->get('/history', function() {       
         include_once './views/history.php';
+    });
+
+$router->get('/addnocard', function() {
+        reloadaddnocard();
     });
 
 $router->get('/compcheckout', function($request) {
@@ -106,6 +111,25 @@ $router->post('/deletehistory', function($request) {
         gethistory();
     });
 
+    $router->post('/addnocard', function($request) {
+        $DB = new DB();
+        $inputNoCardName = $_POST['nocardpatronname'];
+        $noCardDateTime = date("F j, Y h:i:s");
+        $addNoCardQuery = "INSERT INTO FMLTRACNoCardList (name, date) VALUES ('$inputNoCardName','$noCardDateTime')";
+        $DB->select($addNoCardQuery, array());
+        reloadaddnocard();
+    });
+
+    $router->post('/deletenocard', function($request) {
+        $DB = new DB();
+
+        $patronNoCardDateTime = $_POST['patronNoCardDateTime'];
+        $deleteNoCardQuery = "DELETE FROM FMLTRACNoCardList WHERE date = '$patronNoCardDateTime'";
+        $DB->select($deleteNoCardQuery, array());
+
+        reloadaddnocard();       
+    });
+    
 $router->post('/submitcompcheckout', function($request) {
         $DB = new DB();
         $ptName = $_POST['ptName'];

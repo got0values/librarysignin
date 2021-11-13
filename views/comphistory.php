@@ -79,8 +79,8 @@
     <script>
         let navListItem = document.querySelectorAll(".nav-list-item")
         let navLink = document.querySelectorAll(".nav-link")
-        navLink[4].style.color = "black";
-        navListItem[4].style.backgroundColor = "lightskyblue";
+        navLink[5].style.color = "black";
+        navListItem[5].style.backgroundColor = "lightskyblue";
     </script>
 
 </div>
