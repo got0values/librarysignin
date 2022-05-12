@@ -12,9 +12,36 @@ body {
     width: 15%;
     top: 0px;
     left: 0px;
-    border-right: 2px solid black;
-    box-shadow: 5px 5px 5px grey;
-    background-color: whitesmoke;
+    border-radius: 0px 5px 5px 0px;
+    box-shadow: 1px 1px 5px black;
+    background-color: darkslategrey;
+    animation: slideInFromLeft 2s ease;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        margin-left: -200px;
+    }
+    100% {
+        opacity:1;
+        margin-left: 0px;
+    }
+}
+
+.card.shadow {
+    animation: slideInFromBottom 2s ease;
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(500px)
+    }
+    100% {
+        opacity:1;
+        transform: translateY(0px)
+    }
 }
 
 .nav-section {
@@ -23,13 +50,19 @@ body {
 }
 
 .nav-section:first-child {
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid grey;
 }
 
 .nav-section-title {
     text-align: center;
-    padding: 15px 0px;
-    background-color: white;
+    padding: 10px 0px;
+    background-color: transparent;
+}
+
+.nav-section-title h5 {
+    margin-bottom: 0px;
+    color: white;
+    font-weight: 900;
 }
 
 .nav-list {
@@ -38,21 +71,16 @@ body {
 
 .nav-list-item {
     width: 100%;
-    border-top: 1px solid black;
     list-style-type: none;
     padding: 1px 1px;
 }
 
 .nav-list-item:hover {
-    background-color: lightskyblue;
-}
-
-.nav-list-item:first-child {
-    border-top: none;
+    background-color: white;
 }
 
 .nav-list-item a:link, a:visited {
-    color: grey;
+    color: white;
     text-decoration: none;
 }
 

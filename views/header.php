@@ -9,9 +9,9 @@
 <nav id="nav">
     <div class="nav-section">
         <div class="nav-section-title">
-            <h3>
+            <h5>
                 Library Sign In
-            </h3>
+            </h5>
         </div>
         <ul class="nav-list">
             <li class="nav-list-item"><a class="nav-link" href='/'>Sign In</a></li>
@@ -22,9 +22,9 @@
     </div>
     <div class="nav-section">
         <div class="nav-section-title">
-            <h3>
+            <h5>
                 Computer Checkout
-            </h3>
+            </h5>
         </div>
         <ul class="nav-list">
             <li class="nav-list-item"><a class="nav-link" href='/compcheckout'>Checkout</a></li>
