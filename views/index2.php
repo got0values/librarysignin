@@ -11,12 +11,12 @@
 
     <title>Sign In</title>
 
-    <h2 class="text-center mb-5">Sign In</h2>
+    <h2 class="text-center mb-5 mt-3">Sign In</h2>
 
     <div class="container input-group mb-3">
         <form action="/submitsignin" method="post">
             <input type="text" name="bcNum" placeholder="Barcode" id="bcInput" autofocus>
-            <input class="btn btn-outline-secondary" name="bcSubmit" value="Submit" type="submit">
+            <input class="btn btn-outline-dark btn-sm" name="bcSubmit" value="Submit" type="submit">
         </form>
     </div> 
 
@@ -66,7 +66,7 @@
     let navListItem = document.querySelectorAll(".nav-list-item")
     let navLink = document.querySelectorAll(".nav-link")
     navLink[0].style.color = "black";
-    navListItem[0].style.backgroundColor = "lightskyblue";
+    navListItem[0].style.backgroundColor = "#487a7a";
 </script>
 
 </div>

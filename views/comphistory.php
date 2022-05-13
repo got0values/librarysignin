@@ -9,7 +9,7 @@
 
     <title>Computer History</title>
 
-    <h2 class="text-center mb-5" id='dateTitle'>Computer History</h2>
+    <h2 class="text-center mb-5 mt-3" id='dateTitle'>Computer History</h2>
 
     <div class="d-flex justify-content-center">
         <form action="/getcomphistory" method="post">
@@ -17,7 +17,7 @@
             <input class="mb-5" type="date" name="inputDate" value=<?php if (isset($_GET['dateSubmit'])) {echo $inputDate;} ?>>
              - 
             <input class="mb-5" type="date" name="inputDate2" value=<?php if (isset($_GET['dateSubmit'])) {echo $inputDate2;} ?>>
-            <input class="btn btn-outline-secondary" name="dateSubmit" type="submit">
+            <input class="btn btn-outline-dark btn-sm" name="dateSubmit" type="submit">
         </form>
     </div> 
 
@@ -80,7 +80,7 @@
         let navListItem = document.querySelectorAll(".nav-list-item")
         let navLink = document.querySelectorAll(".nav-link")
         navLink[5].style.color = "black";
-        navListItem[5].style.backgroundColor = "lightskyblue";
+        navListItem[5].style.backgroundColor = "#487a7a";
     </script>
 
 </div>

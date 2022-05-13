@@ -9,7 +9,7 @@
 
     <title>Add Card</title>
 
-    <h2 class="text-center mb-5">Add Card</h2>
+    <h2 class="text-center mb-5 mt-3">Add Card</h2>
 
     <div class="container input-group mb-3">
         <form action="/addnamecard" method="post">
@@ -17,7 +17,7 @@
             <input type="text" name="inputpatron">
             <label>Name:</label>
             <input type="text" name="inputpatron2">
-            <input class="btn btn-outline-secondary" name="namecardsubmit" value="Submit" type="submit">
+            <input class="btn btn-outline-dark btn-sm" name="namecardsubmit" value="Submit" type="submit">
         </form>
     </div> 
 
@@ -50,7 +50,7 @@
         let navListItem = document.querySelectorAll(".nav-list-item")
         let navLink = document.querySelectorAll(".nav-link")
         navLink[1].style.color = "black";
-        navListItem[1].style.backgroundColor = "lightskyblue";
+        navListItem[1].style.backgroundColor = "#487a7a";
     </script>
 
 </div>

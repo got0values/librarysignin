@@ -1,9 +1,10 @@
 * {
-    font-family: helvetica;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body {
     position: relative;
+    background-color: rgb(182, 226, 226)
 }
 
 #nav {
@@ -15,7 +16,7 @@ body {
     border-radius: 0px 5px 5px 0px;
     box-shadow: 1px 1px 5px black;
     background-color: darkslategrey;
-    animation: slideInFromLeft 2s ease;
+    animation: slideInFromLeft 0.5s ease;
 }
 
 @keyframes slideInFromLeft {
@@ -30,7 +31,7 @@ body {
 }
 
 .card.shadow {
-    animation: slideInFromBottom 2s ease;
+    animation: slideInFromBottom 0.5s ease;
     border-radius: 5px;
 }
 
@@ -57,10 +58,12 @@ body {
 .nav-section-title {
     text-align: center;
     padding: 10px 0px;
+    margin: 15px 0px;
     background-color: transparent;
 }
 
 .nav-section-title h5 {
+    font-size: 18px;
     margin-bottom: 0px;
     color: white;
     font-weight: 900;
@@ -77,21 +80,32 @@ body {
 }
 
 .nav-list-item:hover {
-    background-color: white;
+    background-color: #487a7a;
 }
 
 .nav-list-item a:link, a:visited {
+    font-size: 15px;
     color: white;
     text-decoration: none;
 }
 
 .nav-list-item a:hover, a:active {
-    color: black;
+    color: white;
     text-decoration: none;
+}
+
+h2.text-center {
+    font-weight: bold;
 }
 
 #main {
     position: absolute;
     width: 85%;
     right: 0px;
+}
+
+form {
+    display: flex;
+    gap: 5px;
+    align-items: baseline;
 }

@@ -10,7 +10,7 @@
 
     <title>History</title>
 
-    <h2 class="text-center mb-5" id='dateTitle'>History</h2>
+    <h2 class="text-center mb-5 mt-3" id='dateTitle'>History</h2>
 
     <div class="d-flex justify-content-center">
         <form action="/gethistory" method="post">
@@ -18,7 +18,7 @@
             <input class="mb-5" type="date" name="inputDate" id="inputDate" value=<?php if (isset($inputDate)) {echo $inputDate;} ?>>
              - 
             <input class="mb-5" type="date" name="inputDate2" id="inputDate2" value=<?php if (isset($inputDate2)) {echo $inputDate2;} ?>>
-            <input type="submit" class="btn btn-outline-secondary" name="dateSubmit" id="button-addon2">
+            <input type="submit" class="btn btn-outline-dark btn-sm" name="dateSubmit" id="button-addon2">
         </form>
     </div> 
 
@@ -65,7 +65,7 @@
         let navListItem = document.querySelectorAll(".nav-list-item")
         let navLink = document.querySelectorAll(".nav-link")
         navLink[2].style.color = "black";
-        navListItem[2].style.backgroundColor = "lightskyblue";
+        navListItem[2].style.backgroundColor = "#487a7a";
     </script>
 
 </div>

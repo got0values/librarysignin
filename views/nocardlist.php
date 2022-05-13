@@ -7,13 +7,13 @@
 
 <div id="main">
 
-    <h2 class="text-center mb-5">Add "No Card" Patron</h2>
+    <h2 class="text-center mb-5 mt-3">Add "No Card" Patron</h2>
 
     <div class="container input-group mb-3">
         <form action="/addnocard" method="post">
             <label>Name:</label>
             <input type="text" name="nocardpatronname">
-            <input class="btn btn-outline-secondary" name="nocardsubmit" value="Submit" type="submit">
+            <input class="btn btn-outline-dark btn-sm" name="nocardsubmit" value="Submit" type="submit">
         </form>
     </div> 
 
@@ -46,7 +46,7 @@
         let navListItem = document.querySelectorAll(".nav-list-item")
         let navLink = document.querySelectorAll(".nav-link")
         navLink[3].style.color = "black";
-        navListItem[3].style.backgroundColor = "lightskyblue";
+        navListItem[3].style.backgroundColor = "#487a7a";
     </script>
 
 </div>

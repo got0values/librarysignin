@@ -10,7 +10,7 @@
 
     <title>Computer Check Out</title>
 
-    <h2 class="text-center mb-5">Computer Check Out</h2>
+    <h2 class="text-center mb-5 mt-3">Computer Check Out</h2>
 
     <div class="container input-group mb-3">
         <form action="/submitcompcheckout" method="post">
@@ -101,7 +101,7 @@
         let navListItem = document.querySelectorAll(".nav-list-item")
         let navLink = document.querySelectorAll(".nav-link")
         navLink[4].style.color = "black";
-        navListItem[4].style.backgroundColor = "lightskyblue";
+        navListItem[4].style.backgroundColor = "#487a7a";
     </script>
 
 </div>
